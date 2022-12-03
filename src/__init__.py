@@ -7,7 +7,6 @@ from src.db.database import db
 def create_app(test_config=None):
    app = Flask(__name__, instance_relative_config=True)
 
-   
    if test_config is None:
         app.config.from_mapping(
             SECRET_KEY=os.environ.get("SECRET_KEY"),
@@ -17,12 +16,13 @@ def create_app(test_config=None):
         app.config.from_mapping(test_config)
    
    
-   db.init_app(app)
-
-  
+   db.init_app(app) 
    app.register_blueprint(auth)
    app.register_blueprint(posts)
 
+   
+   with app.app_context():
+       db.create_all()
 
 
    return app
