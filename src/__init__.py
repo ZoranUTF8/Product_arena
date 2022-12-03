@@ -1,15 +1,23 @@
 from flask import Flask
 import os
+from src.routes.auth import auth
+from src.routes.lessons import lessons
 
 def create_app(test_config=None):
-   app = Flask(__name__,instance_relative_config=True)
+   app = Flask(__name__, instance_relative_config=True)
 
+   
    if test_config is None:
-       app.config.from_mapping(os.environ.get("SECRET_KEY"))
+        app.config.from_mapping(
+            SECRET_KEY=os.environ.get("SECRET_KEY"),
+        )
    else:
-       app.config.from_mapping(test_config)
+        app.config.from_mapping(test_config)
 
-    
-    
+   app.register_blueprint(auth)
+   app.register_blueprint(lessons)
+
    return app
 
+
+           
