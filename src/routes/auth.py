@@ -9,7 +9,7 @@ auth = Blueprint("auth",__name__,url_prefix="/api/v1/auth")
 Register a user
 '''
 @auth.post("/register")
-def logout():
+def register():
    return auth_controller.register_user()
 
 
@@ -23,7 +23,7 @@ def login():
 '''
 Logout a user
 '''
-# @auth.post("/logout")
-# def logout():
-#    return auth_controller.logout_user()
+@auth.post("/logout")
+def logout():
+   return auth_controller.logout_user()
 
